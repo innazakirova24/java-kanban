@@ -1,11 +1,18 @@
+package manager;
+
+import task.Epic;
+import task.Status;
+import task.Subtask;
+import task.Task;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskManager {
-   private final HashMap<Integer, Task> tasks = new HashMap<>();
-   private final HashMap<Integer, Epic> epics = new HashMap<>();
-   private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-   private int nextId = 1;
+    private final HashMap<Integer, Task> tasks = new HashMap<>();
+    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private int nextId = 1;
 
     private int generateId() {
         return nextId++;
@@ -131,10 +138,12 @@ public class TaskManager {
     public void deleteAllTasks() {
         tasks.clear();
     }
+
     public void deleteAllEpics() {
         epics.clear();
         subtasks.clear();
     }
+
     public void deleteAllSubtasks() {
         subtasks.clear();
         for (Epic epic : epics.values()) {
@@ -202,11 +211,5 @@ public class TaskManager {
         oldEpic.setTitle(epic.getTitle());
         oldEpic.setDescription(epic.getDescription());
 
-        recalculateEpicStatus(oldEpic.getId());
     }
-
-
-
-
-
 }

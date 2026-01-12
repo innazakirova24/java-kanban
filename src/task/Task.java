@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     private String title;
     private String description;
@@ -32,16 +34,15 @@ public class Task {
         this.title = title;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Task(String title, String description, Status status){
-         this.title = title;
-         this.description = description;
-         this.status = status;
+    public Task(String title, String description, Status status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -64,6 +65,4 @@ public class Task {
 
 
     }
-
-
 }
