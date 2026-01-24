@@ -1,3 +1,4 @@
+import manager.Managers;
 import manager.TaskManager;
 import task.Epic;
 import task.Status;
@@ -6,7 +7,8 @@ import task.Task;
 
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new TaskManager();
+        TaskManager manager = Managers.getDefault();
+
 
         Task task1 = manager.createTask(new Task("Eat", "Поесть", Status.NEW));
         Task task2 = manager.createTask(new Task("Drink", "Попить", Status.NEW));
@@ -24,6 +26,13 @@ public class Main {
         System.out.println();
         printAll(manager);
 
+        manager.getTaskById(task1.getId());
+        manager.getEpicById(epic1.getId());
+        manager.getSubtaskById(sub1.getId());
+
+        System.out.println();
+        System.out.println("ПОСМОТРЕЛИ НЕСКОЛЬКО ЗАДАЧ");
+        printAll(manager);
 
 
         task1.setStatus(Status.DONE);
@@ -42,8 +51,6 @@ public class Main {
         printAll(manager);
 
 
-
-
         sub2.setStatus(Status.DONE);
         manager.updateSubtask(sub2);
 
@@ -51,7 +58,6 @@ public class Main {
         System.out.println("СНОВА ИЗМЕНИЛИ СТАТУСЫ ПОДЗАДАЧ");
         System.out.println();
         printAll(manager);
-
 
 
         manager.deleteTaskById(task2.getId());
@@ -71,6 +77,9 @@ public class Main {
         for (Epic epic : manager.getAllEpics()) {
             System.out.println("Subtasks of epic " + epic.getId() + ": " + manager.getSubtasksOfEpic(epic.getId()));
         }
+
+        System.out.println("History: " + manager.getHistory());
+
     }
 }
 
