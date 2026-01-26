@@ -1,9 +1,10 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
-    private final ArrayList<Integer> subtaskIds = new ArrayList<>();
+    private final List<Integer> subtaskIds = new ArrayList<>();
 
     public Epic(String title, String description) {
         super(title, description, Status.NEW);
@@ -22,7 +23,7 @@ public class Epic extends Task {
         subtaskIds.clear();
     }
 
-    public ArrayList<Integer> getSubtaskIds() {
+    public List<Integer> getSubtaskIds() {
         return new ArrayList<>(subtaskIds);
     }
 
@@ -31,6 +32,11 @@ public class Epic extends Task {
         return "EpicID " + getId() + " [" + getStatus() + "]\n" +
                 "  Название: " + getTitle() + "\n" +
                 "  Описание: " + getDescription() + "\n";
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
     }
 
 }

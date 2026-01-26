@@ -5,13 +5,15 @@ import task.Subtask;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private final List<Task> history = new ArrayList<>();
+    private final List<Task> history = new LinkedList<>();
 
-  
+    private static final int MAX_HISTORY_SIZE = 10;
+
     @Override
     public void add(Task task) {
         if (task == null) {
@@ -19,28 +21,35 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         Task copy;
-        if (task instanceof Subtask) {
-            Subtask s = (Subtask) task;
-            Subtask subCopy = new Subtask(s.getTitle(), s.getDescription(), s.getStatus(), s.getEpicId());
-            subCopy.setId(s.getId());
-            copy = subCopy;
 
-        } else if (task instanceof Epic) {
-            Epic e = (Epic) task;
-            Epic epicCopy = new Epic(e.getTitle(), e.getDescription());
-            epicCopy.setId(e.getId());
-            epicCopy.setStatus(e.getStatus());
-            copy = epicCopy;
+        switch (task.getType()) {
+            case SUBTASK:
+                Subtask s = (Subtask) task;
+                Subtask subCopy = new Subtask(s.getTitle(), s.getDescription(), s.getStatus(), s.getEpicId());
+                subCopy.setId(s.getId());
+                copy = subCopy;
+                break;
 
-        } else {
-            Task taskCopy = new Task(task.getTitle(), task.getDescription(), task.getStatus());
-            taskCopy.setId(task.getId());
-            copy = taskCopy;
+            case EPIC:
+                Epic e = (Epic) task;
+                Epic epicCopy = new Epic(e.getTitle(), e.getDescription());
+                epicCopy.setId(e.getId());
+                epicCopy.setStatus(e.getStatus());
+                copy = epicCopy;
+                break;
+
+            case TASK:
+            default:
+                Task taskCopy = new Task(task.getTitle(), task.getDescription(), task.getStatus());
+                taskCopy.setId(task.getId());
+                copy = taskCopy;
+                break;
         }
 
         history.add(copy);
-        if (history.size() > 10) {
-            history.remove(0);
+
+        if (history.size() > MAX_HISTORY_SIZE) {
+            history.removeFirst();
         }
     }
 

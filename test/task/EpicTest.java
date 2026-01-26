@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 class EpicTest {
 
+    // Все нужные по ТЗ тесты уже лежат в классах InMemoryHistoryManagerTest, InMemoryTaskManagerTest, EpicTest, TaskTest
+
     @Test
     void cantAddEpicAsOwnSubtask() {
         Epic epic = new Epic("Epic_1", "Epic_1 description");

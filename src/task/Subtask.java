@@ -19,6 +19,10 @@ public class Subtask extends Task {
                 "  Описание: " + getDescription() + "\n";
     }
 
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
+    }
 
 
 }
